@@ -2,7 +2,6 @@ package ua.androbene.a220_mvp_sample;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
