@@ -32,29 +32,19 @@ public class UsersActivity extends AppCompatActivity {
 
     private void init() {
 
-        editTextName = (EditText) findViewById(R.id.name);
-        editTextEmail = (EditText) findViewById(R.id.email);
+        editTextName = findViewById(R.id.name);
+        editTextEmail = findViewById(R.id.email);
 
-        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.add();
-            }
-        });
+        findViewById(R.id.add).setOnClickListener(v -> presenter.add());
 
-        findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clear();
-            }
-        });
+        findViewById(R.id.clear).setOnClickListener(v -> presenter.clear());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         userAdapter = new UserAdapter();
 
-        RecyclerView userList = (RecyclerView) findViewById(R.id.list);
+        RecyclerView userList = findViewById(R.id.list);
         userList.setLayoutManager(layoutManager);
         userList.setAdapter(userAdapter);
 

@@ -3,8 +3,6 @@ package ua.androbene.a220_mvp_sample;
 import android.content.ContentValues;
 import android.text.TextUtils;
 
-import java.util.List;
-
 public class UsersPresenter {
 
     private UsersActivity view;
@@ -28,12 +26,7 @@ public class UsersPresenter {
     }
 
     public void loadUsers() {
-        model.loadUsers(new UsersModel.LoadUserCallback() {
-            @Override
-            public void onLoad(List<UsersData> users) {
-                view.showUsers(users);
-            }
-        });
+        model.loadUsers(users -> view.showUsers(users));
     }
 
     public void add() {
@@ -47,23 +40,17 @@ public class UsersPresenter {
         cv.put(UserTable.COLUMN.NAME, userData.getName());
         cv.put(UserTable.COLUMN.EMAIL, userData.getEmail());
         view.showProgress();
-        model.addUser(cv, new UsersModel.CompleteCallback() {
-            @Override
-            public void onComplete() {
-                view.hideProgress();
-                loadUsers();
-            }
+        model.addUser(cv, () -> {
+            view.hideProgress();
+            loadUsers();
         });
     }
 
     public void clear() {
         view.showProgress();
-        model.clearUsers(new UsersModel.CompleteCallback() {
-            @Override
-            public void onComplete() {
-                view.hideProgress();
-                loadUsers();
-            }
+        model.clearUsers(() -> {
+            view.hideProgress();
+            loadUsers();
         });
     }
 
